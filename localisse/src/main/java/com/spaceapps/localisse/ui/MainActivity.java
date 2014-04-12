@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
     public void onResume() {
         super.onResume();
         main = MainApp.getInstance();
-        main.getZones().add(new Zone(this, 0, 0, 400, 400));
+        addZone (0, 0, 400, 400);
     }
 
 
@@ -55,6 +55,7 @@ public class MainActivity extends Activity {
         Zone newZone = new Zone(getApplicationContext(), beginX, beginY, sizeX, sizeY);
         main.getZones().add(newZone);
         ((RelativeLayout)findViewById(R.id.map_content)).addView(newZone.getView());
+        newZone.getView().bringToFront();
     }
 
 

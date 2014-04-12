@@ -2,6 +2,7 @@ package com.spaceapps.localisse.model;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -45,7 +46,10 @@ public class Zone {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(ctx, ZoneActivity.class);
-                i.putExtra("zoneid", MainApp.getInstance().getZones().indexOf(this));
+                int zoneid = MainApp.getInstance().getZones().size();
+                i.putExtra("zoneid", zoneid);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Log.d("ZONEAOBJECT", "SEND ATIVITY ZONE WITH ID: " + zoneid);
                 ctx.startActivity(i);
             }
         });
