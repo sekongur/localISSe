@@ -18,7 +18,7 @@
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
             android:padding="@dimen/activity_horizontal_margin"
-            android:src="@drawable/map_starship"/>
+            android:src="@drawable/mapa"/>
 
     </LinearLayout>
 

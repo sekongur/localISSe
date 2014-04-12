@@ -72,7 +72,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="AndroidIBeaconLibrary-0.7.6" level="project" />
     <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
-    <orderEntry type="library" exported="" name="ibeaconlibrary" level="project" />
     <orderEntry type="library" exported="" name="retrofit-1.5.0" level="project" />
   </component>
 </module>

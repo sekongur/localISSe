@@ -1,4 +1,4 @@
-package com.spaceapps.localisse.com.spaceapps.localisse.utils;
+package com.spaceapps.localisse.common;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

@@ -29,7 +29,6 @@
             android:name=".ui.ZoneActivity"
             android:screenOrientation="landscape">
         </activity>
-
     </application>
 
 </manifest>
