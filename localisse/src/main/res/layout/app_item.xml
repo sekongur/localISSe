@@ -18,7 +18,7 @@
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
             android:padding="@dimen/activity_horizontal_margin"
-            android:src="@drawable/mapa"/>
+            android:src="@drawable/ic_launcher"/>
 
     </LinearLayout>
 

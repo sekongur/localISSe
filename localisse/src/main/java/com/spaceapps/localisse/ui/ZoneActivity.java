@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.spaceapps.localisse.MainApp;
@@ -39,21 +41,59 @@ public class ZoneActivity extends Activity {
         int zoneid = intent.getIntExtra("zoneid", -1);
         Log.d("ZONEACTIVITY", "ID DE LA ZONA: " + zoneid);
 
-        ArrayList<Application> apps = new ArrayList<Application>();
-        apps.add(new Application(
-                new Intent(Intent.ACTION_VIEW, Uri.parse("fb://root")),
-                "Facebook", "This is facebook", R.drawable.ic_launcher));
-        apps.add(new Application(
-                new Intent(Intent.ACTION_VIEW, Uri.parse("fb://root")),
-                "Facebook", "This is facebook", R.drawable.ic_launcher));
-        apps.add(new Application(
-                new Intent(Intent.ACTION_VIEW, Uri.parse("fb://root")),
-                "Facebook", "This is facebook", R.drawable.ic_launcher));
-        apps.add(new Application(
-                new Intent(Intent.ACTION_VIEW, Uri.parse("fb://root")),
-                "Facebook", "This is facebook", R.drawable.ic_launcher));
-        AppAdapter appAdapter = new AppAdapter(apps);
-        appList.setAdapter(appAdapter);
+        if (zoneid == 0) {
+            ((LinearLayout) this.findViewById(R.id.layoutbg)).setBackgroundResource(R.drawable.zona1);
+            ArrayList<Application> apps = new ArrayList<Application>();
+            apps.add(new Application(
+                    new Intent(Intent.ACTION_VIEW, Uri.parse("fb://root")),
+                    "Music", "Play music", R.drawable.musica));
+
+            apps.add(new Application(
+                    new Intent(Intent.ACTION_VIEW, Uri.parse("fb://root")),
+                    "Notes", "Take notes", R.drawable.bloc));
+
+            apps.add(new Application(
+                    new Intent(Intent.ACTION_VIEW, Uri.parse("fb://root")),
+                    "Mail", "Access to your mail", R.drawable.mail));
+
+            apps.add(new Application(
+                    new Intent(Intent.ACTION_VIEW, Uri.parse("fb://root")),
+                    "Chat", "Talk with others", R.drawable.chat));
+            AppAdapter appAdapter = new AppAdapter(apps);
+            appList.setAdapter(appAdapter);
+        }
+        if (zoneid == 1) {
+            ((LinearLayout) this.findViewById(R.id.layoutbg)).setBackgroundResource(R.drawable.zona2);
+
+            ArrayList<Application> apps = new ArrayList<Application>();
+            apps.add(new Application(
+                    new Intent(Intent.ACTION_VIEW, Uri.parse("fb://root")),
+                    "Control Panel", "Control Panel", R.drawable.control));
+
+            apps.add(new Application(
+                    new Intent(Intent.ACTION_VIEW, Uri.parse("fb://root")),
+                    "Compass", "Orientate yourself", R.drawable.brujula));
+
+            AppAdapter appAdapter = new AppAdapter(apps);
+            appList.setAdapter(appAdapter);
+        }
+        if (zoneid == 2) {
+            ((LinearLayout) this.findViewById(R.id.layoutbg)).setBackgroundResource(R.drawable.zona3);
+
+            ArrayList<Application> apps = new ArrayList<Application>();
+            apps.add(new Application(
+                    new Intent(Intent.ACTION_VIEW, Uri.parse("fb://root")),
+                    "Lab", "Laboratory data", R.drawable.lab));
+
+            apps.add(new Application(
+                    new Intent(Intent.ACTION_VIEW, Uri.parse("fb://root")),
+                    "Data", "View log files", R.drawable.archivo));
+
+            AppAdapter appAdapter = new AppAdapter(apps);
+            appList.setAdapter(appAdapter);
+        }
+
+
     }
 
 

@@ -2,13 +2,17 @@ package com.spaceapps.localisse.async;
 
 import android.os.AsyncTask;
 import com.spaceapps.localisse.common.LocalisseAPI;
+import com.spaceapps.localisse.model.Usuario;
 import com.spaceapps.localisse.model.usuarios;
 import com.spaceapps.localisse.ui.MainActivity;
+
+import java.util.List;
 
 public class LoadAstronauts extends AsyncTask<Void, Void, Void> {
 	private MainActivity activity;
 //    private ProgressDialog progress = null;
-    private usuarios astronauts;
+    //private usuarios astronauts;
+    private List<Usuario> astronauts;
 
 	public LoadAstronauts(MainActivity activity) {
     	this.activity = activity;
@@ -40,7 +44,7 @@ public class LoadAstronauts extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void result)
     {
 //        if (progress.isShowing()) progress.dismiss();
-        activity.onAstronautsReady(astronauts);
+        //activity.onAstronautsReady(astronauts);
     }
 
 }

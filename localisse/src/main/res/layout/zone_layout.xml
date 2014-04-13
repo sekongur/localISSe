@@ -4,27 +4,15 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="3">
+    android:background="@drawable/zona1"
+    android:id="@+id/layoutbg"
+    android:layout_gravity="right">
+
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
-        android:layout_weight="1">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            android:padding="@dimen/activity_horizontal_margin"
-            android:src="@drawable/mapa"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="2">
+        android:layout_marginLeft="300dp">
 
         <ListView
             android:id="@+id/app_list"

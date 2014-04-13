@@ -13,16 +13,20 @@ public class Astronaut {
     Context ctx;
     String name;
     String id;
-    ImageView astronautView;
+    //ImageView astronautView;
 
     public Astronaut(Context ctx, String name, String id) {
         this.ctx = ctx;
         this.name = name;
         this.id = id;
-        createView();
+        //createView();
     }
 
-    private void createView() {
+    public String getId(){
+        return id;
+    }
+
+    /*private void createView() {
         LinearLayout.LayoutParams lp =
                 new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -32,10 +36,10 @@ public class Astronaut {
         astronautView.setLayoutParams(lp);
         // COULD BE DIFFERENT DEPENDS ON ID TO PERSONALIZE
         astronautView.setImageResource(R.drawable.astronaut);
-    }
+    }*/
 
-    public ImageView getView() {
+    /*public ImageView getView() {
         return astronautView;
-    }
+    }*/
 
 }

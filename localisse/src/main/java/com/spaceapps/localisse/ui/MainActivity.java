@@ -21,12 +21,18 @@ import com.radiusnetworks.ibeacon.RangeNotifier;
 import com.radiusnetworks.ibeacon.Region;
 import com.spaceapps.localisse.MainApp;
 import com.spaceapps.localisse.R;
-import com.spaceapps.localisse.async.LoadAstronauts;
+import com.spaceapps.localisse.async.LoadAstronautsHttp;
+import com.spaceapps.localisse.async.SendAstronautPosition;
 import com.spaceapps.localisse.common.LocalisseAPI;
 import com.spaceapps.localisse.common.Utils;
 import com.spaceapps.localisse.model.Astronaut;
+import com.spaceapps.localisse.model.Usuario;
 import com.spaceapps.localisse.model.Zone;
 import com.spaceapps.localisse.model.usuarios;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Collection;
 import java.util.List;
@@ -38,6 +44,12 @@ public class MainActivity extends Activity implements IBeaconConsumer {
     public static final double RANGE_ZONE = 2.0;
 
     protected PowerManager.WakeLock mWakeLock;
+    Zone zone1;
+    Zone zone2;
+    Zone zone3;
+
+    boolean detailsOpen = false;
+    int zoneOpen = 9;
 
     //private IBeaconProtocol ibp;
     private IBeaconManager iBeaconManager = IBeaconManager.getInstanceForApplication(this);
@@ -51,18 +63,21 @@ public class MainActivity extends Activity implements IBeaconConsumer {
 
         main = MainApp.getInstance();
 
-        // ADD ZONES HERE
-        main.getZones().add(addZone(130, 250, 200, 90));
-        main.getZones().add(addZone(350, 250, 200, 90));
-        main.getZones().add(addZone(740, 250, 150, 90));
+        // ADD ZONES HERE -- nexus4
+        zone1 = addZone(80, 400, 220, 90);
+        main.getZones().add(zone1);
+        zone2 = addZone(850, 400, 150, 90);
+        main.getZones().add(zone2);
+        zone3 = addZone(1070, 100, 90, 250);
+        main.getZones().add(zone3);
 
-        // ASYNC LOAD ASTRONAUTS
-        LoadAstronauts load = new LoadAstronauts(this);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            load.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        } else {
-            load.execute();
-        }
+        /*// ADD ZONES HERE -- nexus5
+        zone1 = addZone(130, 550, 220, 90);
+        main.getZones().add(zone1);
+        zone2 = addZone(1300, 550, 150, 90);
+        main.getZones().add(zone2);
+        zone3 = addZone(1650, 200, 90, 250);
+        main.getZones().add(zone3);*/
 
         //Keep the screen ON
         final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -73,6 +88,13 @@ public class MainActivity extends Activity implements IBeaconConsumer {
     @Override
     public void onResume() {
         super.onResume();
+
+        detailsOpen = false;
+
+        // ASYNC LOAD ASTRONAUTS
+        LoadAstronautsHttp load = new LoadAstronautsHttp(this);
+        load.execute("http://ghomam.es/nasa/locations");
+
     }
 
     @Override
@@ -102,7 +124,47 @@ public class MainActivity extends Activity implements IBeaconConsumer {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onAstronautsReady(usuarios astronauts) {
+    public void onAstronautsReady(String astronauts) {
+        Log.e(Utils.LOG_TAG, "Respuesta:"+astronauts);
+
+        try {
+            JSONObject jsonObject = new JSONObject(astronauts);
+            //JSONObject userData = jsonObject.getJSONObject("user");
+            zone1.clear();
+            zone2.clear();
+            zone3.clear();
+            JSONArray jStackArray = jsonObject.getJSONArray("usuarios");
+            Log.e(Utils.LOG_TAG, "stack:" + jStackArray.length());
+            for (int i = 0; i < jStackArray.length(); i++) {
+                try {
+                    JSONObject oneObject = jStackArray.getJSONObject(i);
+                    Log.e(Utils.LOG_TAG, "user id:"+oneObject.getString("id"));
+                    Astronaut astro = new Astronaut(getBaseContext(),"Name", oneObject.getString("id"));
+                    Log.e(Utils.LOG_TAG,"astro cargado");
+
+
+                    if (oneObject.getString("location").equals("0"))
+                        zone1.addAstronaut(astro);
+                    if (oneObject.getString("location").equals("1"))
+                        zone2.addAstronaut(astro);
+                    if (oneObject.getString("location").equals("2"))
+                        zone3.addAstronaut(astro);
+                    //main.getZones().get(0).addAstronaut(astro);
+
+
+                } catch (JSONException e) {
+                    // The JSON is invalid
+                    Log.e("JM", "Error: " + e.toString());
+                }
+            }
+        } catch (Exception e){
+            Log.e(Utils.LOG_TAG, "Error al cargar el JSON "+e.toString());
+        }
+
+        // REFRESH EVERY TIME
+        LoadAstronautsHttp load = new LoadAstronautsHttp(this);
+        load.execute("http://ghomam.es/nasa/locations");
+
 //        List<Astronaut> astronauts = api.getAstronauts();
 //
 //        zone1.addAstronaut();
@@ -171,17 +233,28 @@ public class MainActivity extends Activity implements IBeaconConsumer {
 
     public void openNearestZone(Collection<IBeacon> iBeacons){
         //Open the zone for the nearest beacon if is <= to the RANGE
-        if (iBeacons.iterator().next().getAccuracy() <= RANGE_ZONE){
-            Intent i=new Intent(this, ZoneActivity.class);
-            int zoneid = iBeacons.iterator().next().getMinor();
-            i.putExtra("zoneid", zoneid);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            Log.d("ZONEAOBJECT", "SEND ACTIVITY ZONE WITH ID: " + zoneid);
+        int zoneid = iBeacons.iterator().next().getMinor() -1;
+        if (!detailsOpen || zoneid != zoneOpen) {
 
-            Toast.makeText(getApplicationContext(), "Abriendo zona " + zoneid,
-                    Toast.LENGTH_LONG).show();
 
-            this.startActivity(i);
+            if (iBeacons.iterator().next().getAccuracy() <= RANGE_ZONE) {
+
+                detailsOpen = true;
+                zoneOpen = zoneid;
+
+                Intent i = new Intent(this, ZoneActivity.class);
+
+                i.putExtra("zoneid", zoneid);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                //Send zone of the device
+                SendAstronautPosition load = new SendAstronautPosition(this);
+                load.execute("http://ghomam.es/nasa/user/" + Utils.getDevice(getBaseContext()) + "/" + zoneid);
+
+                Log.d("ZONEAOBJECT", "SEND ACTIVITY ZONE WITH ID: " + zoneid);
+
+                this.startActivity(i);
+            }
         }
     }
 

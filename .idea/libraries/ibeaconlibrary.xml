@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="ibeaconlibrary">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/localisse/libs/ibeaconlibrary.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
