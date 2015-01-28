@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LocalISSe-app.iml" filepath="$PROJECT_DIR$/LocalISSe-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/localISSe.iml" filepath="$PROJECT_DIR$/localISSe.iml" />
       <module fileurl="file://$PROJECT_DIR$/localisse/localisse.iml" filepath="$PROJECT_DIR$/localisse/localisse.iml" />
     </modules>
   </component>

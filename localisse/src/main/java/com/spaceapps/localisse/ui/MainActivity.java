@@ -51,7 +51,6 @@ public class MainActivity extends Activity implements IBeaconConsumer {
     boolean detailsOpen = false;
     int zoneOpen = 9;
 
-    //private IBeaconProtocol ibp;
     private IBeaconManager iBeaconManager = IBeaconManager.getInstanceForApplication(this);
 
     @Override
@@ -63,21 +62,13 @@ public class MainActivity extends Activity implements IBeaconConsumer {
 
         main = MainApp.getInstance();
 
-        // ADD ZONES HERE -- nexus4
-        zone1 = addZone(80, 400, 220, 90);
-        main.getZones().add(zone1);
-        zone2 = addZone(850, 400, 150, 90);
-        main.getZones().add(zone2);
-        zone3 = addZone(1070, 100, 90, 250);
-        main.getZones().add(zone3);
-
-        /*// ADD ZONES HERE -- nexus5
+        // ADD ZONES HERE -- nexus5
         zone1 = addZone(130, 550, 220, 90);
         main.getZones().add(zone1);
         zone2 = addZone(1300, 550, 150, 90);
         main.getZones().add(zone2);
         zone3 = addZone(1650, 200, 90, 250);
-        main.getZones().add(zone3);*/
+        main.getZones().add(zone3);
 
         //Keep the screen ON
         final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -129,7 +120,6 @@ public class MainActivity extends Activity implements IBeaconConsumer {
 
         try {
             JSONObject jsonObject = new JSONObject(astronauts);
-            //JSONObject userData = jsonObject.getJSONObject("user");
             zone1.clear();
             zone2.clear();
             zone3.clear();
@@ -149,7 +139,6 @@ public class MainActivity extends Activity implements IBeaconConsumer {
                         zone2.addAstronaut(astro);
                     if (oneObject.getString("location").equals("2"))
                         zone3.addAstronaut(astro);
-                    //main.getZones().get(0).addAstronaut(astro);
 
 
                 } catch (JSONException e) {
@@ -165,14 +154,6 @@ public class MainActivity extends Activity implements IBeaconConsumer {
         LoadAstronautsHttp load = new LoadAstronautsHttp(this);
         load.execute("http://ghomam.es/nasa/locations");
 
-//        List<Astronaut> astronauts = api.getAstronauts();
-//
-//        zone1.addAstronaut();
-//        zone1.addAstronaut();
-//        zone1.addAstronaut();
-//
-//
-//        zone2.addAstronaut();
     }
 
     public Zone addZone (int beginX, int beginY, int sizeX, int sizeY) {
@@ -208,27 +189,6 @@ public class MainActivity extends Activity implements IBeaconConsumer {
             iBeaconManager.startRangingBeaconsInRegion(new Region("myRangingUniqueId", null, null, null));
         } catch (RemoteException e) {   }
 
-
-        /*iBeaconManager.setMonitorNotifier(new MonitorNotifier() {
-            @Override
-            public void didEnterRegion(Region region) {
-                Log.e(Utils.LOG_TAG, "I just saw an iBeacon for the firt time!");
-            }
-
-            @Override
-            public void didExitRegion(Region region) {
-                Log.e(Utils.LOG_TAG, "I no longer see an iBeacon");
-            }
-
-            @Override
-            public void didDetermineStateForRegion(int state, Region region) {
-                Log.e(Utils.LOG_TAG, "I have just switched from seeing/not seeing iBeacons: "+state+" "+region.getMinor()+" "+region.toString());
-            }
-        });*/
-
-        /*try {
-            iBeaconManager.startMonitoringBeaconsInRegion(new Region("myMonitoringUniqueId", null, null, null));
-        } catch (RemoteException e) {   }*/
     }
 
     public void openNearestZone(Collection<IBeacon> iBeacons){

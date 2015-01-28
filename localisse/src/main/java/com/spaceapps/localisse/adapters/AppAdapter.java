@@ -16,7 +16,7 @@ import com.spaceapps.localisse.model.Application;
 import java.util.ArrayList;
 
 /**
- * Created by Jacob on 4/7/2014.
+ * Created by JMliras on 12/04/2014.
  */
 public class AppAdapter extends BaseAdapter {
     ArrayList<Application> appList;

@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 import com.spaceapps.localisse.R;
 
 /**
- * Created by Jacob on 4/12/2014.
+ * Created by JMliras on 12/04/2014.
  */
 public class Astronaut {
     Context ctx;
@@ -19,27 +19,11 @@ public class Astronaut {
         this.ctx = ctx;
         this.name = name;
         this.id = id;
-        //createView();
     }
 
     public String getId(){
         return id;
     }
 
-    /*private void createView() {
-        LinearLayout.LayoutParams lp =
-                new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
-
-        ImageView astronautView = new ImageView(ctx);
-        astronautView.setLayoutParams(lp);
-        // COULD BE DIFFERENT DEPENDS ON ID TO PERSONALIZE
-        astronautView.setImageResource(R.drawable.astronaut);
-    }*/
-
-    /*public ImageView getView() {
-        return astronautView;
-    }*/
 
 }

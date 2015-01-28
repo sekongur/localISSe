@@ -9,7 +9,7 @@ public class Utils {
 
     public static String LOG_TAG = "localISSe";
 
-    /*public static boolean isOnline(Context context) {
+    public static boolean isOnline(Context context) {
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -17,7 +17,7 @@ public class Utils {
             return true;
         }
         return false;
-    }*/
+    }
 
     public static String getDevice(Context context){
         return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);

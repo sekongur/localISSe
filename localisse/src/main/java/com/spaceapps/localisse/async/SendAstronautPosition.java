@@ -23,7 +23,6 @@ public class SendAstronautPosition extends AsyncTask<String, String, String> {
 
     public SendAstronautPosition(MainActivity activity) {
         this.activity = activity;
-//        progress = new ProgressDialog(activity);
     }
 
     @Override
@@ -59,7 +58,6 @@ public class SendAstronautPosition extends AsyncTask<String, String, String> {
         super.onPostExecute(result);
         //Do anything with response..
         Log.e(Utils.LOG_TAG, "position sended");
-        //activity.onAstronautsReady(responseString);
 
     }
 }

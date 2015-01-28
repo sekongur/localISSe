@@ -10,22 +10,14 @@ import java.util.List;
 
 public class LoadAstronauts extends AsyncTask<Void, Void, Void> {
 	private MainActivity activity;
-//    private ProgressDialog progress = null;
-    //private usuarios astronauts;
     private List<Usuario> astronauts;
 
 	public LoadAstronauts(MainActivity activity) {
     	this.activity = activity;
-//        progress = new ProgressDialog(activity);
     }
 
     @Override
     protected void onPreExecute() {
-        // This method works in UI Thread
-//        progress.setTitle("LOADING ASTRONAUTS");
-//        progress.setMessage("Pleaase wait a second..");
-//        progress.setCancelable(false);
-//        progress.show();
     }
 
 	@Override
@@ -43,8 +35,6 @@ public class LoadAstronauts extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void result)
     {
-//        if (progress.isShowing()) progress.dismiss();
-        //activity.onAstronautsReady(astronauts);
     }
 
 }

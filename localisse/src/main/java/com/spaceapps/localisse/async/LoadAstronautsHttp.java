@@ -23,7 +23,6 @@ public class LoadAstronautsHttp extends AsyncTask<String, String, String> {
 
     public LoadAstronautsHttp(MainActivity activity) {
         this.activity = activity;
-//        progress = new ProgressDialog(activity);
     }
 
     @Override
